@@ -10,11 +10,11 @@ spec:
     - host: km12.dev
       http:
         paths:
-          - path: /order
+          - path: /api/v1/user
             pathType: Prefix
             backend:
               service:
-                name: order-srv
+                name: user-srv
                 port:
                   number: 3000
       

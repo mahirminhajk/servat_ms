@@ -10,7 +10,7 @@ k8s_yaml([
 docker_build(
    'mahirminhajk/s.user',
    context='./user-service',
-   dockerfile='./user-service/infra/k8s/Dockerfile',
+   dockerfile='./user-service/infra/docker/Dockerfile',
    ignore=['node_modules'],
    live_update=[
        sync('./user-service/src', '/app/src'),
