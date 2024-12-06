@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="25.0.1">
+  <diagram name="Page-1" id="flLhnomJVlLddU0EtnP0">
+    <mxGraphModel dx="1100" dy="635" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bDRJOkeD36UGASDtuyuy-1" value="&lt;b&gt;&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;u style=&quot;font-size: 16px;&quot;&gt;SERVAT DIAGRAM TEMPLATE&lt;/u&gt;&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#ffcc99;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-3" value="&lt;b&gt;USER SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-4" value="&lt;b&gt;CATALOG SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-5" value="&lt;b&gt;CATALOG SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="39" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-6" value="&lt;b&gt;PAYMENT SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="39" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-13" value="&lt;b&gt;NOTIFICATION SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="39" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-14" value="&lt;b&gt;ADMIN SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="179" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-15" value="&lt;b&gt;PROVIDER SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="179" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-16" value="&lt;b&gt;REVIEW SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="178" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-19" value="&lt;b&gt;LOCATION SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="312" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-20" value="&lt;b&gt;SUPPORT SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="313" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-21" value="&lt;b&gt;FILEUPLOAD SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="313" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-22" value="&lt;b&gt;REVIEW SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="312" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-23" value="&lt;b&gt;&amp;nbsp;PRICING SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-24" value="&lt;b&gt;RECOMMENDATION SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="451" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-25" value="&lt;b&gt;SCHEDULING SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="451" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-26" value="&lt;b&gt;COUPON SERVICE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;flipH=0;flipV=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-27" value="MONGO" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#cdeb8b;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry x="600" y="80" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-28" value="SQL" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#eeeeee;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry x="600" y="180" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-29" value="REDIS" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffcc99;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry x="600" y="280" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bDRJOkeD36UGASDtuyuy-30" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;RABBITMQ&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;gradientColor=#7ea6e0;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="680" y="80" width="120" height="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
