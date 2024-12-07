@@ -15,9 +15,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@km12dev/shared-servat": "^1.0.5",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
     "express": "^4.21.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

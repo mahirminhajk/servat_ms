@@ -1,0 +1,19 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/v1/customer/create
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "mahir",
+    "phone": "918086009808",
+    "password": "123456789"
+  }
+}

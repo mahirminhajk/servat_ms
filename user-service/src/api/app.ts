@@ -1,25 +1,26 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { ErrorRequestHandler } from "express";
+import { errHandler, NotFoundErr } from "@km12dev/shared-servat";
 
 import combinedRouter from "./routes";
 
 const app = express();
 
 //* middleware
+if(process.env.NODE_ENV === "development") {
+    app.use(require("morgan")("dev"));
+}
+app.set("trust proxy", true); // express behind proxy(nginx)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //* routes
-app.use("/", combinedRouter);
+app.use("/api/v1", combinedRouter);
 
 //* not found route
-app.use((req, res) => {
-    res.status(404).send("Not found");
+app.use(() => {
+    throw new NotFoundErr("Route not found.");
 });
 
-//* error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).send("Something broke!");
-});
+app.use(errHandler as ErrorRequestHandler);
 
 export default app;
