@@ -1,8 +1,9 @@
 k8s_yaml([
-    'infra/k8s/ingress-srv.yaml',
-    'infra/k8s/namespaces.yaml',
+    'infra/k8s/ingress-srv.yaml',   # Ingress service
+    'infra/k8s/namespaces.yaml',    # Namespaces
+    'infra/k8s/rabbitmq-depl.yaml', # RabbitMQ deployment
 
-    'user-service/infra/k8s/user-depl.yaml',
+    'user-service/infra/k8s/user-depl.yaml', # User service deployment
 
 ])
 
@@ -20,8 +21,8 @@ docker_build(
 )
 
 # Port forwarding rabbitmq service
-#k8s_resource(
-#    workload='rabbitmq-depl',
-#    port_forwards='ourPort:podPort'
-#)
+k8s_resource(
+   workload='rabbitmq-depl',
+   port_forwards='15672:15672'
+)
 

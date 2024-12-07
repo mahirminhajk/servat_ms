@@ -22,6 +22,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: my-mq
+  name: my-others
 
 ---

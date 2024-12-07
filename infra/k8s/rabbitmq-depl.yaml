@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-depl
+  namespace: my-others
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq-depl
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-depl
+    spec:
+      containers:
+      - name: rabbitmq-depl
+        image: rabbitmq:3-management
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-srv
+  namespace: my-others
+spec:
+  selector:
+    app: rabbitmq-depl
+  ports:
+    - name: rabbitmq
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
