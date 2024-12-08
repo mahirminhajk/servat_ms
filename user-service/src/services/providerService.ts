@@ -29,4 +29,9 @@ export class ProviderService {
         await customer.update({ verified: true });
         return customer;
     };
+
+    static async deleteAll(): Promise<number> {
+        const deletedCount = await Provider.unscoped().destroy({ where: {} });
+        return deletedCount;
+    };
 };

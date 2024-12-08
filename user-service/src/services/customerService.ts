@@ -44,4 +44,9 @@ export class CustomerService {
         await customer.update({ verified: true });
         return customer;
     };
+
+    static async deleteAll(): Promise<number> {
+        const deletedCount = await Customer.unscoped().destroy({ where: {} });
+        return deletedCount;
+    };
 };

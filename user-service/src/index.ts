@@ -3,18 +3,16 @@ import { serverSetups } from "./config";
 
 
 const main = async () => {
-    if (!process.env.PORT) {
-        throw new Error('❌ PORT is not defined');
-    }
-    if (!process.env.DATABASE_URL) {
-        throw new Error('❌ DATABASE_URL is not defined');
-    }
-    if (!process.env.JWT_SECRET) {
-        throw new Error('❌ JWT_SECRET is not defined');
-    };
-    if (!process.env.OTOKEN_JWT_SECRET) {
-        throw new Error('❌ OTOKEN_JWT_SECRET is not defined');
-     };
+    if (!process.env.NODE_ENV) throw new Error('❌ NODE_ENV is not defined');
+    if (!process.env.PORT) throw new Error('❌ PORT is not defined');
+    if (!process.env.DATABASE_URL) throw new Error('❌ DATABASE_URL is not defined');
+    if (!process.env.JWT_SECRET) throw new Error('❌ JWT_SECRET is not defined');
+    if (!process.env.JWT_EXPIRES_IN) throw new Error('❌ JWT_EXPIRES_IN is not defined');
+    if (!process.env.OTOKEN_JWT_SECRET) throw new Error('❌ OTOKEN_JWT_SECRET is not defined');
+    if (!process.env.OTOKEN_JWT_EXPIRES_IN) throw new Error('❌ OTOKEN_JWT_EXPIRES_IN is not defined');
+    if (!process.env.JWT_SECRET_PROVIDER) throw new Error('❌ JWT_SECRET_PROVIDER is not defined');
+    if (!process.env.JWT_EXPIRES_IN_PROVIDER) throw new Error('❌ JWT_EXPIRES_IN_PROVIDER is not defined');
+    if (!process.env.OTP_EXPIRES_IN) throw new Error('❌ OTP_EXPIRES_IN is not defined');
 
     await serverSetups();
 
