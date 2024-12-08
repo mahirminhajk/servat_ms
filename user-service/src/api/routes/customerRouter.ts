@@ -1,5 +1,5 @@
 import { NextFunction, Response, Router, Request } from "express";
-import { BadRequestErr, ErrTypes, validateRequest } from "@km12dev/shared-servat";
+import { BadRequestErr, ErrTypes, validateRequest, verifyCustomer, RequestWithCustomer } from "@km12dev/shared-servat";
 
 import { CustomerService } from "../../services/customerService";
 import { loginValidator, registerValidator, verifyValidator } from "../middlewares/customerValidator";
@@ -111,6 +111,21 @@ router.post("/login", loginValidator, validateRequest, async (req: Request, res:
     }
 });
 
+router.get("/verify", verifyCustomer, async (req: RequestWithCustomer, res: Response, next: NextFunction) => {
+    if (!req.customer) {
+        return next(new BadRequestErr("Customer not found.", ErrTypes.NOT_FOUND));
+    }
+
+    //TODO: check the customer is not blacklisted
+
+    res.status(200).json({
+        message: "Customer verified successfully.",
+        data: {
+            id: req.customer.id,
+            phone: req.customer.phone,
+        }
+    });
+});
 
 
 
