@@ -3,26 +3,33 @@ import { sequelize } from "../config/database";
 
 export interface ICustomer {
     id?: number;
+
     name: string;
     phone: string;
-    password: string;
+    password?: string;
+    verified?: boolean;
+    blacklisted?: boolean;
+
     createdAt?: Date;
     updatedAt?: Date;
     version?: number;
 };
 
-class User extends Model<ICustomer> implements ICustomer {
+class Customer extends Model<ICustomer> implements ICustomer {
     public id!: number;
+
     public name!: string;
     public phone!: string;
     public password!: string;
+    public verified!: boolean;
+    public blacklisted!: boolean;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     public version!: number;
 }
 
-User.init({
+Customer.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -45,7 +52,17 @@ User.init({
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+    },
+    verified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    blacklisted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
     },
     version: {
         type: DataTypes.INTEGER,
@@ -56,7 +73,21 @@ User.init({
     sequelize,
     modelName: "customer",
     timestamps: true,
-    version: true
+    version: true,
+    indexes: [
+        {
+            fields: ["phone"]
+        },
+    ],
+    defaultScope: {
+        attributes: {
+            exclude: ["password"],
+        },
+        where: {
+            verified: true,
+            blacklisted: false
+        },
+    }
 });
 
-export default User;
+export default Customer;

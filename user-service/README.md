@@ -7,6 +7,11 @@
 docker run --name postgres-server -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=mydb -p 5432:5432 -d postgres
 ```
 
+- reuse the pg
+```bash
+docker start postgres-server
+```
+
 - connect to the pg
 ```bash
 docker exec -it postgres-server psql -U admin -d mydb

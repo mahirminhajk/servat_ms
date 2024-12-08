@@ -3,13 +3,19 @@ import { serverSetups } from "./config";
 
 
 const main = async () => {
-    if(!process.env.PORT) {
+    if (!process.env.PORT) {
         throw new Error('❌ PORT is not defined');
     }
-    if(!process.env.DATABASE_URL) {
+    if (!process.env.DATABASE_URL) {
         throw new Error('❌ DATABASE_URL is not defined');
     }
-    
+    if (!process.env.JWT_SECRET) {
+        throw new Error('❌ JWT_SECRET is not defined');
+    };
+    if (!process.env.OTOKEN_JWT_SECRET) {
+        throw new Error('❌ OTOKEN_JWT_SECRET is not defined');
+     };
+
     await serverSetups();
 
     const PORT = process.env.PORT;
