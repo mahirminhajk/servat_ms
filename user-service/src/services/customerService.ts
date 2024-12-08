@@ -1,7 +1,7 @@
 import Customer, { ICustomer } from "../models/Customer";
 
 export class CustomerService {
-    static async getByPhone(phone: string): Promise<ICustomer | null> {                
+    static async getByPhone(phone: string): Promise<Customer | null> {                
         const customer = await Customer.unscoped().findOne({ where: { phone } });
         return customer;
     };

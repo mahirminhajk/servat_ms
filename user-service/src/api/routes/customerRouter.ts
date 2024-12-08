@@ -2,7 +2,7 @@ import { NextFunction, Response, Router, Request } from "express";
 import { BadRequestErr, ErrTypes, validateRequest } from "@km12dev/shared-servat";
 
 import { CustomerService } from "../../services/customerService";
-import { registerValidator, verifyValidator } from "../middlewares/customerValidator";
+import { loginValidator, registerValidator, verifyValidator } from "../middlewares/customerValidator";
 import { generateToken, hashPassword } from "../../utils";
 import { AuthService } from "../../services/authService";
 
@@ -42,7 +42,7 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
     }
 });
 
-router.post("/verify", verifyValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
+router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { otp } = req.body;
         const otoken = req.header("x-otoken");
@@ -77,6 +77,41 @@ router.post("/verify", verifyValidator, validateRequest, async (req: Request, re
         next(error);
     }
 });
+
+//TODO: resend otp
+
+router.post("/login", loginValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { phone, password } = req.body;
+
+        const user = await CustomerService.getByPhone(phone);
+        if (!user) {
+            return next(new BadRequestErr("User not found, Please Register", ErrTypes.NOT_FOUND));
+        }
+
+        const token = await AuthService.login(user, password);
+        if (!token) {
+            return next(new BadRequestErr("Invalid phone number or password.", ErrTypes.INVALID));
+        }
+
+        res
+            .setHeader("x-token", token)
+            .status(200)
+            .json({
+                message: "Login successful.",
+                data: {
+                    id: user.id,
+                    name: user.name,
+                    phone: user.phone,
+                }
+            });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 
 
 export default router;

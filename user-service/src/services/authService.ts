@@ -1,6 +1,6 @@
 import { BadRequestErr, ErrTypes } from "@km12dev/shared-servat";
-import { ICustomer } from "../models/Customer";
-import { compareOTP, generateOtoken, generateOtp, hashOTP, verifyOtoken } from "../utils";
+import Customer, { ICustomer } from "../models/Customer";
+import { compareOTP, comparePassword, generateOtoken, generateOtp, generateToken, hashOTP, verifyOtoken } from "../utils";
 import { OtpService } from "./otpService";
 
 export class AuthService {
@@ -9,7 +9,7 @@ export class AuthService {
         //* generate otp
         const code = generateOtp();
         if (process.env.NODE_ENV === "development") console.log(`📋 OTP SEND TO ${user.phone}: ${code}`);
-        
+
         //TODO: publish event
 
         //* hash otp
@@ -34,10 +34,10 @@ export class AuthService {
     static async verify(otoken: string, otp: string): Promise<number | null> {
         const decode = verifyOtoken(otoken);
         if (!decode) throw new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.RESEND_OTP);
-        
+
         const otpData = await OtpService.getById(decode.otpId);
         if (!otpData) throw new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.RESEND_OTP);
-        
+
         //* check if otp is expired
         if (otpData.expiresAt < new Date()) throw new BadRequestErr("OTP expired, Please resend.", ErrTypes.EXPIRED);
 
@@ -58,6 +58,22 @@ export class AuthService {
 
         //* return user id
         return otpData.userId;
+    };
+
+    static async login(user: Customer, password: string): Promise<string> {
+
+        //* check user verified
+        if (!user.verified) throw new BadRequestErr("User not verified.", ErrTypes.INVALID);
+
+        //* compare password
+        const isMatch = comparePassword(password, user.password);
+        if (!isMatch) throw new BadRequestErr("Invalid credentials.", ErrTypes.INVALID);
+
+        //* generate token
+        const token = generateToken({ id: user.id!, phone: user.phone });
+
+        return token;
+
     };
 
 };
