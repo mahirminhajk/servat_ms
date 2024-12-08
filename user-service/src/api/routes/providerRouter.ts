@@ -1,9 +1,9 @@
 import { NextFunction, Response, Router, Request } from "express";
-import { BadRequestErr, ErrTypes, validateRequest, verifyCustomer, RequestWithCustomer } from "@km12dev/shared-servat";
+import { BadRequestErr, ErrTypes, validateRequest, verifyProvider, RequestWithProvider } from "@km12dev/shared-servat";
 
-import { CustomerService } from "../../services/customerService";
+import { ProviderService } from "../../services/providerService";
 import { loginValidator, registerValidator, verifyValidator } from "../middlewares/authValidator";
-import { generateToken, hashPassword } from "../../utils";
+import { generateTokenProvider, hashPassword } from "../../utils";
 import { AuthService } from "../../services/authService";
 
 const router = Router();
@@ -12,16 +12,16 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
     try {
         const { name, phone, password } = req.body;
 
-        const existingCustomer = await CustomerService.getByPhone(phone);
-        if (existingCustomer) {
+        const existingProvider = await ProviderService.getByPhone(phone);
+        if (existingProvider) {
             res.status(400).json({ message: "Phone number already exists, Please Login.", type: "ALREADY_EXIST" });
             return;
         }
 
         const hashedPassword = hashPassword(password);
-        const newCustomer = await CustomerService.create({ name, phone, password: hashedPassword });
+        const newProvider = await ProviderService.create({ name, phone, password: hashedPassword });
 
-        const otoken = await AuthService.register(newCustomer);
+        const otoken = await AuthService.register(newProvider);
 
         res
             .setHeader("x-otoken", otoken)
@@ -29,9 +29,9 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
             .json({
                 message: "OTP sent to your phone number, please verify.",
                 data: {
-                    id: newCustomer.id,
-                    name: newCustomer.name,
-                    phone: newCustomer.phone,
+                    id: newProvider.id,
+                    name: newProvider.name,
+                    phone: newProvider.phone,
                 }
             })
 
@@ -53,12 +53,12 @@ router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request
         }
 
         //* verify user
-        const user = await CustomerService.verify(userId);
+        const user = await ProviderService.verify(userId);
         if (!user) {
             return next(new BadRequestErr("User not found.", ErrTypes.NOT_FOUND));
         }
 
-        const token = generateToken({ id: user.id!, phone: user.phone });
+        const token = generateTokenProvider({ id: user.id!, phone: user.phone });
 
         res
             .setHeader("x-token", token)
@@ -84,7 +84,7 @@ router.post("/login", loginValidator, validateRequest, async (req: Request, res:
     try {
         const { phone, password } = req.body;
 
-        const user = await CustomerService.getByPhone(phone);
+        const user = await ProviderService.getByPhone(phone);
         if (!user) {
             return next(new BadRequestErr("User not found, Please Register", ErrTypes.NOT_FOUND));
         }
@@ -111,18 +111,18 @@ router.post("/login", loginValidator, validateRequest, async (req: Request, res:
     }
 });
 
-router.get("/verify", verifyCustomer, async (req: RequestWithCustomer, res: Response, next: NextFunction) => {
-    if (!req.customer) {
-        return next(new BadRequestErr("Customer not found.", ErrTypes.NOT_FOUND));
+router.get("/verify", verifyProvider, async (req: RequestWithProvider, res: Response, next: NextFunction) => {
+    if (!req.provider) {
+        return next(new BadRequestErr("Provider not found.", ErrTypes.NOT_FOUND));
     }
 
-    //TODO: check the customer is not blacklisted
+    //TODO: check the provider is not blacklisted
 
     res.status(200).json({
-        message: "Customer verified successfully.",
+        message: "Provider verified successfully.",
         data: {
-            id: req.customer.id,
-            phone: req.customer.phone,
+            id: req.provider.id,
+            phone: req.provider.phone,
         }
     });
 });

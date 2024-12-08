@@ -6,7 +6,7 @@ export class CustomerService {
         return customer;
     };
     
-    static async create(data: { name: string, phone: string, password: string }): Promise<ICustomer> {
+    static async create(data: { name: string, phone: string, password: string }): Promise<Customer> {
         
         if(data.phone.length == 10) {
             data.phone = `91${data.phone}`;

@@ -1,10 +1,11 @@
 import { BadRequestErr, ErrTypes } from "@km12dev/shared-servat";
-import Customer, { ICustomer } from "../models/Customer";
-import { compareOTP, comparePassword, generateOtoken, generateOtp, generateToken, hashOTP, verifyOtoken } from "../utils";
+import Customer from "../models/Customer";
+import { compareOTP, comparePassword, generateOtoken, generateOtp, generateToken, generateTokenProvider, hashOTP, verifyOtoken } from "../utils";
 import { OtpService } from "./otpService";
+import Provider from "../models/Provider";
 
 export class AuthService {
-    static async register(user: ICustomer): Promise<string> {
+    static async register(user: Customer | Provider): Promise<string> {
         if (!user) throw new BadRequestErr("Can't register user.", ErrTypes.SERVER_ERROR);
         //* generate otp
         const code = generateOtp();
@@ -15,17 +16,19 @@ export class AuthService {
         //* hash otp
         const hashedCode = hashOTP(code);
 
-        const userType = "customer";
+        const userType = user instanceof Customer ? "customer" : "provider";
 
         const otpData = await OtpService.create({
             code: hashedCode,
             userId: user.id!,
             userType,
         });
+        console.log(otpData);
+
 
         const otoken = generateOtoken({
-            u: otpData.id!,
-            o: user.id!,
+            u: user.id!,
+            o: otpData.id!
         });
 
         return otoken;
@@ -36,6 +39,7 @@ export class AuthService {
         if (!decode) throw new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.RESEND_OTP);
 
         const otpData = await OtpService.getById(decode.otpId);
+
         if (!otpData) throw new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.RESEND_OTP);
 
         //* check if otp is expired
@@ -60,7 +64,7 @@ export class AuthService {
         return otpData.userId;
     };
 
-    static async login(user: Customer, password: string): Promise<string> {
+    static async login(user: Customer | Provider, password: string): Promise<string> {
 
         //* check user verified
         if (!user.verified) throw new BadRequestErr("User not verified.", ErrTypes.INVALID);
@@ -70,10 +74,13 @@ export class AuthService {
         if (!isMatch) throw new BadRequestErr("Invalid credentials.", ErrTypes.INVALID);
 
         //* generate token
-        const token = generateToken({ id: user.id!, phone: user.phone });
-
-        return token;
-
+        if (user instanceof Customer) {
+            return generateToken({ id: user.id!, phone: user.phone });
+        } else if (user instanceof Provider) {
+            return generateTokenProvider({ id: user.id!, phone: user.phone });
+        } else {
+            throw new BadRequestErr("Invalid user type.", ErrTypes.INVALID);
+        }
     };
 
 };
