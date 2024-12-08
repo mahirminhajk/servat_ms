@@ -27,7 +27,7 @@ export class CustomerService {
     };
 
     static async delete(id: number): Promise<number> {
-        const deletedCount = await Customer.destroy({ where: { id } });
+        const deletedCount = await Customer.unscoped().destroy({ where: { id } });
         return deletedCount;
     };
 
@@ -37,7 +37,7 @@ export class CustomerService {
     };
 
     static async verify(id: number): Promise<ICustomer | null> {
-        const customer = await Customer.findByPk(id);
+        const customer = await Customer.unscoped().findByPk(id);
         if (!customer) {
             return null;
         }

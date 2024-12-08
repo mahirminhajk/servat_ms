@@ -1,9 +1,9 @@
 import { NextFunction, Response, Router, Request } from "express";
-import { validateRequest } from "@km12dev/shared-servat";
+import { BadRequestErr, ErrTypes, validateRequest } from "@km12dev/shared-servat";
 
 import { CustomerService } from "../../services/customerService";
-import { registerValidator } from "../middlewares/customerValidator";
-import { hashPassword } from "../../utils";
+import { registerValidator, verifyValidator } from "../middlewares/customerValidator";
+import { generateToken, hashPassword } from "../../utils";
 import { AuthService } from "../../services/authService";
 
 const router = Router();
@@ -12,7 +12,7 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
     try {
         const { name, phone, password } = req.body;
 
-        const existingCustomer = await CustomerService.getByPhone(phone);        
+        const existingCustomer = await CustomerService.getByPhone(phone);
         if (existingCustomer) {
             res.status(400).json({ message: "Phone number already exists, Please Login.", type: "ALREADY_EXIST" });
             return;
@@ -36,6 +36,42 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
             })
 
         //TODO: publish event
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post("/verify", verifyValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { otp } = req.body;
+        const otoken = req.header("x-otoken");
+
+        const userId = await AuthService.verify(otoken!, otp);
+        if (!userId) {
+            return next(new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.INVALID));
+        }
+
+        //* verify user
+        const user = await CustomerService.verify(userId);
+        if (!user) {
+            return next(new BadRequestErr("User not found.", ErrTypes.NOT_FOUND));
+        }
+
+        const token = generateToken({ id: user.id!, phone: user.phone });
+
+        res
+            .setHeader("x-token", token)
+            .status(200)
+            .json({
+                message: "OTP verified successfully.",
+                data: {
+                    id: user.id,
+                    name: user.name,
+                    phone: user.phone,
+                }
+            });
+
 
     } catch (error) {
         next(error);

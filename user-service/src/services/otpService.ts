@@ -14,4 +14,8 @@ export class OtpService {
         });
         return newOtp;
     }
+
+    static async getById(id: number): Promise<Otp | null> {
+        return await Otp.findByPk(id);
+    }
 }

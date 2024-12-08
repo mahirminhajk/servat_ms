@@ -1,6 +1,6 @@
 import { BadRequestErr, ErrTypes } from "@km12dev/shared-servat";
 import { ICustomer } from "../models/Customer";
-import { generateOtoken, generateOtp, hashOTP } from "../utils";
+import { compareOTP, generateOtoken, generateOtp, hashOTP, verifyOtoken } from "../utils";
 import { OtpService } from "./otpService";
 
 export class AuthService {
@@ -30,4 +30,34 @@ export class AuthService {
 
         return otoken;
     };
+
+    static async verify(otoken: string, otp: string): Promise<number | null> {
+        const decode = verifyOtoken(otoken);
+        if (!decode) throw new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.RESEND_OTP);
+        
+        const otpData = await OtpService.getById(decode.otpId);
+        if (!otpData) throw new BadRequestErr("Invalid OTP, Please resend.", ErrTypes.RESEND_OTP);
+        
+        //* check if otp is expired
+        if (otpData.expiresAt < new Date()) throw new BadRequestErr("OTP expired, Please resend.", ErrTypes.EXPIRED);
+
+        //* check otp retry count
+        if (otpData.retryCount >= 3) throw new BadRequestErr("OTP retry limit exceeded, Please resend.", ErrTypes.RESEND_OTP);
+
+        //* verify otp
+        const isMatch = compareOTP(otp, otpData.code);
+        if (!isMatch) {
+            otpData.retryCount++;
+            await otpData.save();
+            throw new BadRequestErr("Invalid OTP, Please retry.", ErrTypes.INVALID_OTP);
+        }
+
+        //* update otp
+        otpData.done = true;
+        await otpData.save();
+
+        //* return user id
+        return otpData.userId;
+    };
+
 };
