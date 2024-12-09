@@ -17,9 +17,44 @@ spec:
         image: mahirminhajk/s.user
         env: 
         - name: NODE_ENV
-          value: "production"
+          valueFrom:
+            secretKeyRef:
+              name: node-env
+              key: NODE_ENV
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_SECRET
+        - name: JWT_SECRET_PROVIDER
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_SECRET_PROVIDER
         - name: PORT
           value: "3000"
+        - name: JWT_EXPIRES_IN
+          value: "1d"
+        - name: OTOKEN_JWT_SECRET
+          value: "myoTokenJwt"
+        - name: OTOKEN_JWT_EXPIRES_IN
+          value: "10m"
+        - name: JWT_EXPIRES_IN_PROVIDER
+          value: "1d"
+        - name: OTP_EXPIRES_IN
+          value: "3"
+        - name: DATABASE_HOST
+          value: "user-pgsql-svc.my-db.svc.cluster.local"
+        - name: DATABASE_PORT
+          value: "5432"
+        - name: DATABASE_DB
+          value: "userdb"
+        - name: DATABASE_USER
+          value: "userservice"
+        - name: DATABASE_PASSWORD
+          value: "password"
+        - name: RABBITMQ_URL
+          value: "amqp://rabbitmq-svc.my-others.svc.cluster.local:5672"
         resources:
           limits:
             memory: "768Mi"
@@ -35,13 +70,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: user-srv
+  name: user-svc
   namespace: my-service
 spec:
   selector:
     app: user-depl
   ports:
-    - name: user-srv
+    - name: user-svc
       protocol: TCP
       port: 3000
       targetPort: 3000

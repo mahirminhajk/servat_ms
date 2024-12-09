@@ -6,7 +6,11 @@ import { rabbitMqConfig } from "./events";
 const main = async () => {
     if (!process.env.NODE_ENV) throw new Error('❌ NODE_ENV is not defined');
     if (!process.env.PORT) throw new Error('❌ PORT is not defined');
-    if (!process.env.DATABASE_URL) throw new Error('❌ DATABASE_URL is not defined');
+    if (!process.env.DATABASE_HOST) throw new Error('❌ DATABASE_HOST is not defined');
+    if (!process.env.DATABASE_PORT) throw new Error('❌ DATABASE_PORT is not defined');
+    if (!process.env.DATABASE_DB) throw new Error('❌ DATABASE_DB is not defined');
+    if (!process.env.DATABASE_USER) throw new Error('❌ DATABASE_USER is not defined');
+    if (!process.env.DATABASE_PASSWORD) throw new Error('❌ DATABASE_PASSWORD is not defined');
     if (!process.env.JWT_SECRET) throw new Error('❌ JWT_SECRET is not defined');
     if (!process.env.JWT_EXPIRES_IN) throw new Error('❌ JWT_EXPIRES_IN is not defined');
     if (!process.env.OTOKEN_JWT_SECRET) throw new Error('❌ OTOKEN_JWT_SECRET is not defined');

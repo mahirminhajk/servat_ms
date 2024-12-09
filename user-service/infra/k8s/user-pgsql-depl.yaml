@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-pgsql-depl
+  namespace: my-db
+spec:
+  selector:
+    matchLabels:
+      app: user-pgsql-depl
+  template:
+    metadata:
+      labels:
+        app: user-pgsql-depl
+    spec:
+      containers:
+      - name: user-pgsql-depl
+        image: postgres:12.2
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: userdb
+        - name: POSTGRES_USER
+          value: userservice
+        - name: POSTGRES_PASSWORD
+          value: password
+        volumeMounts:
+        - name: user-pgsql-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: user-pgsql-storage
+        persistentVolumeClaim:
+          claimName: user-pgsql-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: user-pgsql-pvc
+  namespace: my-db
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-pgsql-svc
+  namespace: my-db
+spec:
+  selector:
+    app: user-pgsql-depl
+  ports:
+  - port: 5432
+  type: ClusterIP
+

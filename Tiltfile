@@ -1,9 +1,11 @@
 k8s_yaml([
-    'infra/k8s/ingress-srv.yaml',   # Ingress service
+    'infra/k8s/ingress-svc.yaml',   # Ingress service
     'infra/k8s/namespaces.yaml',    # Namespaces
     'infra/k8s/rabbitmq-depl.yaml', # RabbitMQ deployment
+    'infra/k8s/secrets.yaml',       # Secrets
 
     'user-service/infra/k8s/user-depl.yaml', # User service deployment
+    'user-service/infra/k8s/user-pgsql-depl.yaml', # PostgreSQL deployment
 
 ])
 
@@ -20,9 +22,11 @@ docker_build(
    target='dev'
 )
 
+# define dependencies for services
+k8s_resource('user-depl', resource_deps=['rabbitmq-depl', 'user-pgsql-depl'])
+
 # Port forwarding rabbitmq service
 k8s_resource(
    workload='rabbitmq-depl',
    port_forwards='15672:15672'
 )
-

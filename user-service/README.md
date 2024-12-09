@@ -44,3 +44,15 @@ DELETE FROM customers WHERE id = 1; # delete a row
 DROP TABLE customers; # delete a table
 
 ```
+
+# RabbitMQ
+
+- run the rabbitmq in docker
+```bash
+docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+```
+
+- reuse the rabbitmq
+```bash
+docker start some-rabbit
+```
