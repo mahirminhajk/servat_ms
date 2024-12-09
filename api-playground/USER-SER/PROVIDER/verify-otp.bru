@@ -1,0 +1,21 @@
+meta {
+  name: verify-otp
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/v1/provider/verify-otp
+  body: json
+  auth: none
+}
+
+headers {
+  x-otoken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1Ijo0LCJvIjo2LCJpYXQiOjE3MzM2NjYzMjcsImV4cCI6MTczMzY2NjkyN30.jUgavYzuGJbGl7l-Ksx54I2NWJJkzy05ZN6w2SwR2wA
+}
+
+body:json {
+  {
+    "otp": "385431"
+  }
+}

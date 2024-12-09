@@ -1,0 +1,19 @@
+meta {
+  name: reg
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/v1/provider/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "provider",
+    "phone": "918086009804",
+    "password": "123456789"
+  }
+}
