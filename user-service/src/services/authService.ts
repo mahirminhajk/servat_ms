@@ -23,8 +23,6 @@ export class AuthService {
             userId: user.id!,
             userType,
         });
-        console.log(otpData);
-
 
         const otoken = generateOtoken({
             u: user.id!,
