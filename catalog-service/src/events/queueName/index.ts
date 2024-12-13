@@ -1,0 +1,1 @@
+export const queueName = 'user_queue';

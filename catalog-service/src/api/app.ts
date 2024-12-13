@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //* routes
-app.use("/api/v1/user", combinedRouter);
+app.use("/api/v1/catalog", combinedRouter);
 
 //* not found route
 app.use(() => {
