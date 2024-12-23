@@ -5,6 +5,7 @@ import { CustomerService } from "../../services/customerService";
 import { loginValidator, registerValidator, verifyValidator } from "../middlewares/authValidator";
 import { generateToken, hashPassword } from "../../utils";
 import { AuthService } from "../../services/authService";
+import { customerVerifiedPublisher } from "../../events";
 
 const router = Router();
 
@@ -34,8 +35,6 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
                     phone: newCustomer.phone,
                 }
             })
-
-        //TODO: publish event
 
     } catch (error) {
         next(error);
@@ -71,6 +70,13 @@ router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request
                     phone: user.phone,
                 }
             });
+
+        //* Customer verified event
+        await customerVerifiedPublisher.publish({
+            id: user.id!.toString(),
+            name: user.name,
+            phone: user.phone,
+        });
 
 
     } catch (error) {

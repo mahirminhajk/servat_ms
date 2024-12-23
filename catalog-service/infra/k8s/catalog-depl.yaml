@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-depl
+spec:
+  selector:
+    matchLabels:
+      app: catalog-depl
+  template:
+    metadata:
+      labels:
+        app: catalog-depl
+    spec:
+      containers:
+      - name: catalog-depl
+        image: mahirminhajk/s.catalog
+        env: 
+        - name: NODE_ENV
+          valueFrom:
+            secretKeyRef:
+              name: node-env
+              key: NODE_ENV
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_SECRET
+        - name: JWT_SECRET_PROVIDER
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_SECRET_PROVIDER
+        - name: PORT
+          value: "3000"
+        - name: RABBITMQ_URL
+          value: "amqp://rabbitmq-svc.my-others.svc.cluster.local:5672"
+        - name: JWT_EXPIRES_IN
+          value: "1d"
+        - name: OTOKEN_JWT_SECRET
+          value: "myoTokenJwt"
+        - name: OTOKEN_JWT_EXPIRES_IN
+          value: "10m"
+        - name: JWT_EXPIRES_IN_PROVIDER
+          value: "1d"
+        - name: OTP_EXPIRES_IN
+          value: "3"
+        - name: MONGO_URL
+          value: "mongodb://admin:password@catalog-mongo-svc.my-db.svc.cluster.local:27017/catalog?authSource=admin"
+        resources:
+          limits:
+            memory: "768Mi"
+            cpu: "1000m"
+          requests:
+            memory: "384Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-svc
+spec:
+  selector:
+    app: catalog-depl
+  ports:
+    - name: catalog-svc
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+

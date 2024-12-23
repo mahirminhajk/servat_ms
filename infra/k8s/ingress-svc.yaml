@@ -14,7 +14,14 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: user-srv
+                name: user-svc
+                port:
+                  number: 3000
+          - path: /api/v1/catalog
+            pathType: Prefix
+            backend:
+              service:
+                name: catalog-svc
                 port:
                   number: 3000
       

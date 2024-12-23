@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-depl
-  namespace: my-service
 spec:
   selector:
     matchLabels:
@@ -71,7 +70,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-svc
-  namespace: my-service
 spec:
   selector:
     app: user-depl

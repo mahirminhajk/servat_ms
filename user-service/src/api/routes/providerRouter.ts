@@ -5,6 +5,7 @@ import { ProviderService } from "../../services/providerService";
 import { loginValidator, registerValidator, verifyValidator } from "../middlewares/authValidator";
 import { generateTokenProvider, hashPassword } from "../../utils";
 import { AuthService } from "../../services/authService";
+import { providerVerifiedPublisher } from "../../events";
 
 const router = Router();
 
@@ -34,8 +35,6 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
                     phone: newProvider.phone,
                 }
             })
-
-        //TODO: publish event
 
     } catch (error) {
         next(error);
@@ -72,6 +71,12 @@ router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request
                 }
             });
 
+        //* publish event
+        await providerVerifiedPublisher.publish({
+            id: user.id!.toString(),
+            name: user.name,
+            phone: user.phone,
+        });
 
     } catch (error) {
         next(error);
