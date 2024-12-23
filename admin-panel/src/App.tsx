@@ -1,14 +1,18 @@
-import './App.css'
-import { Button } from "@/components/ui/button";
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "@/pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
 
 function App() {
-
   return (
-    <>
-      <p>Hello this the admin panel</p>
-      <Button>Click me</Button>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Dashboard />} />
+        <Route path="*" element={<h1>Not Found</h1>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

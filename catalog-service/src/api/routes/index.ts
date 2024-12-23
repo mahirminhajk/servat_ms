@@ -1,9 +1,9 @@
 import { Router } from "express";
 
+import serviceRouter from "./ServiceRoute";
+
 const combinedRouter = Router();
 
-combinedRouter.get("/", (req, res) => {
-  res.json({ message: "Hello World!" });
-});
+combinedRouter.use("/", serviceRouter);
 
 export default combinedRouter;

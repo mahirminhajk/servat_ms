@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@km12dev/shared-servat": "^1.0.16",
+    "@km12dev/shared-servat": "^1.0.20",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "amqplib": "^0.10.5",

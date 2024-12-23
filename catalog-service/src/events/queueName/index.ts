@@ -1,1 +1,1 @@
-export const queueName = 'user_queue';
+export const queueName = 'catalog_queue';

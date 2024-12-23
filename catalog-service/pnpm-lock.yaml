@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@km12dev/shared-servat':
-        specifier: ^1.0.16
-        version: 1.0.16
+        specifier: ^1.0.20
+        version: 1.0.20
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
@@ -318,8 +318,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@km12dev/shared-servat@1.0.16':
-    resolution: {integrity: sha512-MM0/ziJSFtEWJPeF3eShsmhe/dz+p8gn/KWG0lfijelmOOADRAdDB9xsi776Z9g8Gv1UHVjSWIL+e6tvwzftoQ==}
+  '@km12dev/shared-servat@1.0.20':
+    resolution: {integrity: sha512-KNZZAlA4yjyd7a9UKfq3a+wdL6HG1LS9LqGsjB0tiRLqk+B/4cjyyNSECNsskqdZ4mdTrRtBQrcWKoH9s8B3fg==}
 
   '@mongodb-js/saslprep@1.1.9':
     resolution: {integrity: sha512-tVkljjeEaAhCqTzajSdgbQ6gE6f3oneVwa3iXR6csiEwXXOFsiC6Uh9iAjAhXPtqa/XMDHWjjeNH/77m/Yq2dw==}
@@ -2129,7 +2129,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@km12dev/shared-servat@1.0.16':
+  '@km12dev/shared-servat@1.0.20':
     dependencies:
       amqplib: 0.10.5
       express: 4.21.2
