@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: install dpendenecy
-        run: cd auth && npm install -g pnpm && pnpm i
+        run: cd user-service && npm install -g pnpm && pnpm i
 
       - name: run test
         run: pnpm run test
