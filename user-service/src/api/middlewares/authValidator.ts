@@ -1,4 +1,4 @@
-import { body, param, header } from "express-validator";
+import { body, cookie } from "express-validator";
 
 const phoneValidator = body("phone")
     .notEmpty().withMessage("phone is required.")
@@ -18,7 +18,7 @@ const otpValidator = body("otp")
     .isString().withMessage("otp is invalid.")
     .isLength({ min: 6, max: 6 }).withMessage("otp must be 6 characters.");
 
-const otokenValidator = header("x-otoken")
+const otokenValidator = cookie("otoken")
     .notEmpty().withMessage("otoken is required.")
     .isString().withMessage("otoken is invalid.");
 

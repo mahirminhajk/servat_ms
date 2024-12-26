@@ -1,5 +1,6 @@
 import express, { ErrorRequestHandler } from "express";
 import { errHandler, NotFoundErr } from "@km12dev/shared-servat";
+import cookieParser from "cookie-parser";
 
 import combinedRouter from "./routes";
 
@@ -10,6 +11,8 @@ if(process.env.NODE_ENV === "development") {
     app.use(require("morgan")("dev"));
 }
 app.set("trust proxy", true); // express behind proxy(nginx)
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

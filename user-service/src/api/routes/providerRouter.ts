@@ -22,10 +22,10 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
         const hashedPassword = hashPassword(password);
         const newProvider = await ProviderService.create({ name, phone, password: hashedPassword });
 
-        const otoken = await AuthService.register(newProvider);
+        const OtpToken = await AuthService.register(newProvider);
 
         res
-            .setHeader("x-otoken", otoken)
+            .cookie("otoken", OtpToken,)
             .status(201)
             .json({
                 message: "OTP sent to your phone number, please verify.",
@@ -44,7 +44,7 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
 router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { otp } = req.body;
-        const otoken = req.header("x-otoken");
+        const otoken = req.cookies["otoken"];
 
         const userId = await AuthService.verify(otoken!, otp);
         if (!userId) {
@@ -60,7 +60,7 @@ router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request
         const token = generateTokenProvider({ id: user.id!, phone: user.phone });
 
         res
-            .setHeader("x-token", token)
+            .cookie("token", token)
             .status(200)
             .json({
                 message: "OTP verified successfully.",
@@ -100,7 +100,7 @@ router.post("/login", loginValidator, validateRequest, async (req: Request, res:
         }
 
         res
-            .setHeader("x-token", token)
+            .cookie("token", token)
             .status(200)
             .json({
                 message: "Login successful.",

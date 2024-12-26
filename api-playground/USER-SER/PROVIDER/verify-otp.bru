@@ -5,17 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/api/v1/provider/verify-otp
+  url: http://localhost:3000/api/v1/user/provider/verify-otp
   body: json
   auth: none
 }
 
-headers {
-  x-otoken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1IjoxLCJvIjoyLCJpYXQiOjE3MzQwMjk1NDEsImV4cCI6MTczNDAzMDE0MX0.YNz5oxpaAiRtiXBTWnlj8dN2mLGczRRIHHOlN7vGvjI
-}
-
 body:json {
   {
-    "otp": "541321"
+    "otp": "773802"
   }
 }
