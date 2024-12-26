@@ -38,8 +38,8 @@ kubectl describe ingress ingress-service
 
 
 ## Tech Stack
-- Backend: Node.js, Expressjs, TypeScript.
-- Frontend: Reactjs, Nextjs.
+- Backend: Node.js, Express.js, TypeScript.
+- Frontend: React.js, Nextjs.
 - Databases: Mongodb(mongoose), postgresql(sequelize).
 - Authentication: JWT (JSON Web Tokens).
 - Cache: Redis.

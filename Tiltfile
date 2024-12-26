@@ -8,7 +8,9 @@ k8s_yaml([
     'user-service/infra/k8s/user-pgsql-depl.yaml',          # PostgreSQL deployment
 
     'catalog-service/infra/k8s/catalog-depl.yaml',          # catalog service deployment
-    'catalog-service/infra/k8s/catalog-mongo-depl.yaml',    # PostgreSQL deployment
+    'catalog-service/infra/k8s/catalog-mongo-depl.yaml',    # mongodb deployment
+
+    'admin-panel/infra/k8s/admin-depl.yaml'                # Admin panel deployment
 
 ])
 
@@ -32,6 +34,17 @@ docker_build(
    live_update=[
        sync('./catalog-service/src', '/app/src'),
        run('npm install', trigger=['./catalog-service/package.json']),
+   ],
+   target='dev'
+)
+docker_build(
+   'mahirminhajk/s.admin-panel',
+   context='./admin-panel',
+   dockerfile='./admin-panel/infra/docker/Dockerfile',
+   ignore=['node_modules'],
+   live_update=[
+       sync('./admin-panel/src', '/app/src'),
+       run('pnpm install', trigger=['./admin-panel/package.json']),
    ],
    target='dev'
 )
