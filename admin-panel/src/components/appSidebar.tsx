@@ -12,13 +12,14 @@ import {
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Home,
-  Inbox,
-  Search,
   Settings,
   LucideLayoutDashboard,
   ChevronUp,
   User2,
+  Store,
+  CalendarCheck2,
+  Drill,
+  UserSearch,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -26,42 +27,57 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useAppSelector } from "@/hooks/storeHooks";
+import { ROUTES } from "@/constants/routes";
+import { Link } from "react-router-dom";
 
 const items = [
   {
     title: "Dashboard",
-    url: "/home",
+    url: ROUTES.DASHBOARD,
     icon: LucideLayoutDashboard,
   },
   {
-    title: "Providers",
-    url: "#",
-    icon: Inbox,
+    title: "Services",
+    url: ROUTES.SERVICES,
+    icon: Drill,
   },
   {
     title: "Customers",
-    url: "#",
-    icon: Home,
+    url: ROUTES.CUSTOMERS,
+    icon: UserSearch,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Booking",
+    url: ROUTES.BOOKING,
+    icon: CalendarCheck2,
   },
   {
     title: "Settings",
-    url: "#",
+    url: ROUTES.SETTINGS,
     icon: Settings,
   },
 ];
 
 export function AppSidebar() {
+  const userState = useAppSelector((state) => state.user);
+
   return (
     <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <h1>Admin Panel</h1>
+            <SidebarMenuButton size="lg" asChild>
+              <Link to="/">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-pink-400 text-sidebar-primary-foreground">
+                  <Store className="size-4" />
+                </div>
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">SERVAT</span>
+                  <span className="">Business</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -73,10 +89,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link to={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -91,12 +107,19 @@ export function AppSidebar() {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton size="lg">
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="profile-picture"/>
+                    <AvatarImage
+                      src={
+                        userState.profile
+                          ? userState.profile
+                          : "https://github.com/shadcn.png"
+                      }
+                      alt="profile-picture"
+                    />
                     <AvatarFallback>
                       <User2 />
                     </AvatarFallback>
                   </Avatar>{" "}
-                  Username
+                  <span className="capitalize">{userState?.name || "NAN"}</span>
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -118,3 +141,5 @@ export function AppSidebar() {
     </Sidebar>
   );
 }
+
+//TODO: LOGOUT

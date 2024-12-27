@@ -1,6 +1,7 @@
 import express, { ErrorRequestHandler } from "express";
 import { errHandler, NotFoundErr } from "@km12dev/shared-servat";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import combinedRouter from "./routes";
 
@@ -12,6 +13,7 @@ if(process.env.NODE_ENV === "development") {
 }
 app.set("trust proxy", true); // express behind proxy(nginx)
 
+app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
-  username: string;
+  name: string;
   phone: string;
   profile: string;
   isAdmin: boolean;
 };
 
 const initialState: UserState = {
-  username: "",
+  name: "",
   phone: "",
   profile: "",
   isAdmin: false,
@@ -19,13 +19,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserState>) => {
-      state.username = action.payload.username;
+      state.name = action.payload.name;
       state.phone = action.payload.phone;
       state.profile = action.payload.profile;
       state.isAdmin = action.payload.isAdmin;
     },
     clearUser: (state) => {
-      state.username = "";
+      state.name = "";
       state.phone = "";
       state.profile = "";
       state.isAdmin = false;

@@ -14,6 +14,9 @@ spec:
       containers:
       - name: admin-depl
         image: mahirminhajk/s.admin-panel
+        env: 
+        - name: VITE_API_URL
+          value: "http://km12.dev/api/v1"
         resources:
           limits:
             memory: "768Mi"

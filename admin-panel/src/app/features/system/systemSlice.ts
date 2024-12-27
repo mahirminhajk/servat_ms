@@ -7,7 +7,7 @@ interface SystemState {
 
 const initialState: SystemState = {
   isDarkMode: true,
-  isLogined: true,
+  isLogined: false,
 }
 
 const systemSlice = createSlice({
