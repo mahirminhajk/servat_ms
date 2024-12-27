@@ -10,16 +10,58 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginValidationSchema, LoginFormValues } from "@/lib/validationSchema";
+import { useLogin } from "@/api/features/authHook";
+import { API_ROUTES } from "@/constants/apiRoutes";
+import { useToast } from "@/hooks/use-toast";
+import { useAppDispatch } from "@/hooks/storeHooks";
+import { setUser } from "@/app/features/user/userSlice";
+import { setLogined } from "@/app/features/system/systemSlice";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const { mutate: login, isPending } = useLogin();
+  const { toast } = useToast();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = (data: typeof API_ROUTES.LOGIN.data) => {
+    login(data, {
+      onSuccess: (data) => {
+        toast({
+          title: "Login successful",
+          description: `Welcome back, ${data.data.name}`,
+        });
+        console.log(data);
+        dispatch(
+          setLogined(true)
+        );
+        dispatch(
+          setUser({
+            isAdmin: false,
+            name: data.data.name,
+            phone: data.data.phone,
+            profile: data.data?.profile || "",
+          })
+        );
+        navigate(ROUTES.DASHBOARD, { replace: true });
+      },
+      onError: (error) => {
+        toast({
+          variant: "destructive",
+          title: "Login failed",
+          description: error.message,
+        });
+      },
+    });
+  };
+
   const {
     register,
     handleSubmit,
@@ -29,7 +71,11 @@ export function LoginForm({
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
+    const modifiedData = {
+      phone: `91${data.phone}`,
+      password: data.password,
+    };
+    handleLogin(modifiedData);
   };
 
   return (
@@ -72,8 +118,8 @@ export function LoginForm({
                     error={errors.password?.message}
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
+                <Button type="submit" className="w-full" disabled={isPending}>
+                  {isPending ? <>Logging in</> : "Login"}
                 </Button>
               </div>
               <div className="text-center text-sm">
@@ -98,3 +144,4 @@ export function LoginForm({
 }
 
 //TODO: create a privacy policy page
+//TODO: add spinner to login button

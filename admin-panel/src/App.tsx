@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { useAppSelector } from "@/hooks/storeHooks";
 import Login from "@/pages/provider/Login";
 import Testpage from "./pages/testpage";
+import { Toaster } from "./components/ui/toaster";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="*" element={<h1>Not Found</h1>} />
             </Route>
           </Routes>
+          <Toaster />
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
