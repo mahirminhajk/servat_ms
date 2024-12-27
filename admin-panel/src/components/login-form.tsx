@@ -142,5 +142,4 @@ export function LoginForm({
   );
 }
 
-//TODO: create a privacy policy page
 //TODO: add spinner to login button

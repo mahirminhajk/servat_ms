@@ -10,4 +10,3 @@ export const ROUTES = {
     PROFILE: (id: string) => `/profile/${id}`,
 } as const;
 
-//TODO: add privacy policy page

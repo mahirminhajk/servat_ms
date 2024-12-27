@@ -8,15 +8,15 @@ function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center text-center">
       {/* Logo */}
-      <FileWarning size="120" className="text-red-600" />
+      <FileWarning className="text-red-600 lg:h-28 lg:w-28 h-20 w-20" />
 
       {/* Title */}
-      <h1 className="text-4xl font-bold mt-3 text-red-600">
+      <h1 className="lg:text-4xl text-2xl font-bold mt-3 text-red-600">
         404 - Page Not Found
       </h1>
 
       {/* Description */}
-      <p className="text-lg mt-2">
+      <p className="lg:text-lg text-sm mt-2">
         Sorry, the page you are looking for doesn’t exist.
       </p>
 
