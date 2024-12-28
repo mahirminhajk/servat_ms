@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"workbench.editor.labelFormat": "short",
+		"explorer.autoReveal": true
+	}
+}

@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@km12dev/shared-servat':
-        specifier: ^1.0.21
-        version: 1.0.21
+        specifier: ^1.0.22
+        version: 1.0.22
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
@@ -351,8 +351,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@km12dev/shared-servat@1.0.21':
-    resolution: {integrity: sha512-Mh+RgdmhhccCa1c0XZvpEZcKV7l3zh9buWcrjfsGudj0KN6raX85JzcwFOqqpmJMXY2T+wemICazwGfSlCHKnw==}
+  '@km12dev/shared-servat@1.0.22':
+    resolution: {integrity: sha512-miYXT5S9P8RqJaOMvlJE7ZLViJnU5kOhuewYqKEnpssYgzMiV0EtQ+H70GNkIMoLAfBCRQIy6utCKV09S7kkJQ==}
 
   '@npmcli/fs@1.1.1':
     resolution: {integrity: sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ==}
@@ -2606,7 +2606,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@km12dev/shared-servat@1.0.21':
+  '@km12dev/shared-servat@1.0.22':
     dependencies:
       amqplib: 0.10.5
       express: 4.21.2

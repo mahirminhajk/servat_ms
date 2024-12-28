@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run local docker service",
+            "type": "shell",
+            "command": "docker start postgres-server some-rabbit",
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop local docker service",
+            "type": "shell",
+            "command": "docker stop postgres-server some-rabbit",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run k8s",
+            "type": "shell",
+            "command": "tilt up",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run user-service",
+            "type": "shell",
+            "command": "pnpm run dev:local",
+            "options": {
+                "cwd": "user-service"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run catalog-service",
+            "type": "shell",
+            "command": "pnpm run dev:local",
+            "options": {
+                "cwd": "catalog-service"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run admin-panel",
+            "type": "shell",
+            "command": "pnpm run dev",
+            "options": {
+                "cwd": "admin-panel"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run client",
+            "type": "shell",
+            "command": "pnpm run dev",
+            "options": {
+                "cwd": "client"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

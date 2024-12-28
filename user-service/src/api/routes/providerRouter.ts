@@ -71,6 +71,7 @@ router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request
             id: user.id!.toString(),
             name: user.name,
             phone: user.phone,
+            version: user.version!,
         });
 
     } catch (error) {

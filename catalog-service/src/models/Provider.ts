@@ -4,18 +4,18 @@ export interface IProvider {
 
     name: string;
     phone: string;
-    shopName: string;
-    address: string;
-    image: string;
+    shopName?: string;
+    address?: string;
+    image?: string;
 
-    id?: string;
+    _id: number;
     createdAt?: string;
     updatedAt?: string;
-    version?: number;
+    version: number;
 };
 
 export interface IProviderDocument extends IProvider, Document {
-    id: string;
+    _id: number;
     createdAt: string;
     updatedAt: string;
     version: number;
@@ -25,6 +25,7 @@ export interface IProviderDocument extends IProvider, Document {
 const providerSchema = new Schema<IProviderDocument>({
     _id: {
         type: Number,
+        required: true
     },
     name: {
         type: String,
@@ -36,15 +37,12 @@ const providerSchema = new Schema<IProviderDocument>({
     },
     shopName: {
         type: String,
-        required: true
     },
     address: {
         type: String,
-        required: true
     },
     image: {
         type: String,
-        required: true
     },
 }, {
     timestamps: true,
