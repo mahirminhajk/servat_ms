@@ -1,0 +1,38 @@
+{
+  "name": "upload-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "tsc -watch & node --watch-path=./dist --watch-preserve-output dist/index.js",
+    "dev:local": "pnpm run build && tsc --watch & node --watch-path=./dist --watch-preserve-output --env-file=.env dist/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@km12dev/shared-servat": "^1.0.22",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.2",
+    "amqplib": "^0.10.5",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "minio": "^8.0.3",
+    "morgan": "^1.10.0",
+    "multer": "1.4.5-lts.1",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5"
+  }
+}

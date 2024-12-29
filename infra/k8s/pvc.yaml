@@ -5,13 +5,12 @@ metadata:
   namespace: my-db
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -19,7 +18,19 @@ metadata:
   namespace: my-db
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi

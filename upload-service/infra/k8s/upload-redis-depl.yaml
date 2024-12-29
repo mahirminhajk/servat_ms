@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upload-redis-depl
+  namespace: my-db
+spec:
+  selector:
+    matchLabels:
+      app: upload-redis-depl
+  template:
+    metadata:
+      labels:
+        app: upload-redis-depl
+    spec:
+      containers:
+        - name: upload-redis-depl
+          image: redis:latest
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+      volumes:
+        - name: redis-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: upload-redis-svc
+spec:
+  selector:
+    app: upload-redis-depl
+  ports:
+    - port: 6379
+      targetPort: 6379
+  type: ClusterIP
