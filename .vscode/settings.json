@@ -1,0 +1,35 @@
+{
+    "cSpell.words": [
+        "servat"
+    ],
+    "workbench.editor.labelFormat": "short",
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/dist": true,
+        "**/*.js": {
+            "when": "$(basename).ts"
+        },
+        "**/api-playground/**": true,
+        "**/docs/**": true,
+        "**/coverage/**": true,
+        "README.md": true,
+        "**/scripts/**": true,
+        "**/test/**": true,
+        "**/*.test.ts": true,
+    },
+    "editor.formatOnSave": true,
+    "explorer.autoReveal": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/dist": true,
+        "**/node_modules": true,
+        "**/api-playground/**": true,
+    },
+}

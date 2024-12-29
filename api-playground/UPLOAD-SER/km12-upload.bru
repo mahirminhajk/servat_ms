@@ -1,0 +1,23 @@
+meta {
+  name: km12-upload
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://km12.dev/api/v1/upload
+  body: multipartForm
+  auth: none
+}
+
+body:json {
+  {
+    "name": "mahir",
+    "phone": "917293338401",
+    "password": "123456789"
+  }
+}
+
+body:multipart-form {
+  file: @file(/home/km12/Documents/c1.jpeg)
+}

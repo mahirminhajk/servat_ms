@@ -29,11 +29,6 @@ router.post("/register", registerValidator, validateRequest, async (req: Request
             .status(201)
             .json({
                 message: "OTP sent to your phone number, please verify.",
-                data: {
-                    id: newProvider.id,
-                    name: newProvider.name,
-                    phone: newProvider.phone,
-                }
             })
 
     } catch (error) {
@@ -76,6 +71,7 @@ router.post("/verify-otp", verifyValidator, validateRequest, async (req: Request
             id: user.id!.toString(),
             name: user.name,
             phone: user.phone,
+            version: user.version!,
         });
 
     } catch (error) {

@@ -1,0 +1,23 @@
+meta {
+  name: upload
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/v1/upload
+  body: multipartForm
+  auth: none
+}
+
+body:json {
+  {
+    "name": "mahir",
+    "phone": "917293338401",
+    "password": "123456789"
+  }
+}
+
+body:multipart-form {
+  file: @file(/home/km12/Documents/c1.jpeg)
+}

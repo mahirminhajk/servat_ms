@@ -1,7 +1,9 @@
 import { rabbitConnector } from "@km12dev/shared-servat";
+import { queueName } from "./queueName";
 
 //* publishers
 import { ServiceCreatedPublisher, ServiceDeletedPublisher, ServicePriceUpdatedPublisher, ServiceUpdatedPublisher } from "./publishers";
+import { ProviderVerifiedListener } from "./listeners/providerVerifyedListener";
 
 
 export let serviceCreatedPublisher: ServiceCreatedPublisher;
@@ -18,6 +20,5 @@ export const rabbitMqConfig = async (): Promise<void> => {
     servicePriceUpdatedPublisher = new ServicePriceUpdatedPublisher(rabbitConnector.publishChannel);
     serviceUpdatedPublisher = new ServiceUpdatedPublisher(rabbitConnector.publishChannel);
     //* listeners
-    // new PaymentCompleteListener(rabbitConnector.connection, queueName).listen();
-    // new PaymentRefundListener(rabbitConnector.connection, queueName).listen();
+    new ProviderVerifiedListener(rabbitConnector.connection, queueName).listen();
 };

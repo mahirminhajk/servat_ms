@@ -20,34 +20,37 @@ export const API_ROUTES = {
         id: "string",
         name: "string",
         phone: "string",
-      }
+      },
     },
   },
   REGISTER: {
-    path: "/register",
+    path: "/user/provider/register",
     method: "POST",
     data: {
       name: "string",
-      email: "string",
+      phone: "string",
       password: "string",
     },
     response: {
-      userId: "string",
+      message: "string",
     },
   },
-  GET_PROFILE: {
-    path: "/profile",
-    method: "GET",
-    queryParams: {
-      userId: "string",
+  VERIFY_OTP:{
+    path: "/user/provider/verify-otp",
+    method: "POST",
+    data: {
+      otp: "string",
     },
     response: {
-      id: "string",
-      name: "string",
-      email: "string",
-    },
-  },
+      message: "string",
+      data: {
+        id: "string",
+        name: "string",
+        phone: "string",
+      },
+    }
+  }
 };
 
 export type ApiRoutesKey = keyof typeof API_ROUTES;
-export type ApiRouteDetails<K extends ApiRoutesKey> = typeof API_ROUTES[K];
+export type ApiRouteDetails<K extends ApiRoutesKey> = (typeof API_ROUTES)[K];

@@ -22,3 +22,35 @@ export const providerLogin = async (data: typeof API_ROUTES.LOGIN.data) => {
     }
   }
 };
+
+export const providerRegister = async (data: typeof API_ROUTES.REGISTER.data) => {
+  try {
+    const res = await axiosClient.post(API_ROUTES.REGISTER.path, data);
+    return res.data;
+  } catch (error: unknown) {
+    console.log(error);
+    if (isAxiosError(error) && error.response) {
+      throw error.response.data;
+    } else if (error instanceof Error) {
+      throw { message: error.message };
+    } else {
+      throw { message: "An error occurred. Please try again later." };
+    }
+  }
+};
+
+export const providerVerifyOTP = async (data: typeof API_ROUTES.VERIFY_OTP.data) => {
+  try {
+    const res = await axiosClient.post(API_ROUTES.VERIFY_OTP.path, data);
+    return res.data;
+  } catch (error: unknown) {
+    console.log(error);
+    if (isAxiosError(error) && error.response) {
+      throw error.response.data;
+    } else if (error instanceof Error) {
+      throw { message: error.message };
+    } else {
+      throw { message: "An error occurred. Please try again later." };
+    }
+  }
+};

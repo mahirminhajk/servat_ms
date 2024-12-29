@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: ingress-service
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "http://km12.dev"
@@ -28,10 +29,40 @@ spec:
                 name: catalog-svc
                 port:
                   number: 3000
+          - path: /api/v1/upload
+            pathType: Prefix
+            backend:
+              service:
+                name: upload-svc
+                port:
+                  number: 3000
+    - host: admin.km12.dev
+      http:
+        paths:
           - path: /
             pathType: Prefix
             backend:
               service:
                 name: admin-svc
                 port:
-                  number: 5173      
+                  number: 5173
+    - host: minio.km12.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio-svc
+                port:
+                  number: 9000
+    - host: minio.console.km12.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio-svc
+                port:
+                  number: 9001

@@ -43,6 +43,7 @@ export function LoginForm({
         dispatch(
           setUser({
             isAdmin: false,
+            id: data.data.id,
             name: data.data.name,
             phone: data.data.phone,
             profile: data.data?.profile || "",

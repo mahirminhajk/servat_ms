@@ -2,21 +2,20 @@ import { NextFunction, Request, Response, Router } from "express";
 
 import ServiceService from "../../services/ServiceService";
 import { serviceCreatedPublisher, serviceDeletedPublisher, servicePriceUpdatedPublisher, serviceUpdatedPublisher } from "../../events";
-import { RequestWithProvider } from "@km12dev/shared-servat";
+import { RequestWithProvider, verifyProvider } from "@km12dev/shared-servat";
 
 const router = Router();
 
-//TODO: add verify provider middleware
 //TODO: add validation middleware
 
 //* create service
-router.post('/', async (req: RequestWithProvider, res: Response, next: NextFunction) => {
+router.post('/', verifyProvider, async (req: RequestWithProvider, res: Response, next: NextFunction) => {
     try {
         const { data } = req.body;
 
         //* provider
         const provider = req.provider;
-        if(!provider?.id){
+        if (!provider?.id) {
             res
                 .status(401)
                 .json({
@@ -25,9 +24,9 @@ router.post('/', async (req: RequestWithProvider, res: Response, next: NextFunct
             return;
         }
 
-        const service = await ServiceService.createService({...data, provider: provider.id});
+        const service = await ServiceService.createService({ ...data, provider: provider.id });
 
-        if(!service) {
+        if (!service) {
             res
                 .status(400)
                 .json({
@@ -108,7 +107,7 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 });
 
 //* update service
-router.put('/:id', async (req: RequestWithProvider, res: Response, next: NextFunction) => {
+router.put('/:id', verifyProvider, async (req: RequestWithProvider, res: Response, next: NextFunction) => {
     try {
 
         const { id } = req.params;
@@ -116,7 +115,7 @@ router.put('/:id', async (req: RequestWithProvider, res: Response, next: NextFun
 
         //* provider
         const provider = req.provider;
-        if(!provider?.id){
+        if (!provider?.id) {
             res
                 .status(401)
                 .json({
@@ -163,7 +162,7 @@ router.put('/:id', async (req: RequestWithProvider, res: Response, next: NextFun
 });
 
 //* update service price
-router.put('/:id/price', async (req: RequestWithProvider, res: Response, next: NextFunction) => {
+router.put('/:id/price', verifyProvider, async (req: RequestWithProvider, res: Response, next: NextFunction) => {
     try {
 
         const { id } = req.params;
@@ -171,7 +170,7 @@ router.put('/:id/price', async (req: RequestWithProvider, res: Response, next: N
 
         //* provider
         const provider = req.provider;
-        if(!provider?.id){
+        if (!provider?.id) {
             res
                 .status(401)
                 .json({
@@ -215,14 +214,14 @@ router.put('/:id/price', async (req: RequestWithProvider, res: Response, next: N
 });
 
 //* delete service
-router.delete('/:id', async (req: RequestWithProvider, res: Response, next: NextFunction) => {
+router.delete('/:id', verifyProvider, async (req: RequestWithProvider, res: Response, next: NextFunction) => {
     try {
 
         const { id } = req.params;
 
         //* provider
         const provider = req.provider;
-        if(!provider?.id){
+        if (!provider?.id) {
             res
                 .status(401)
                 .json({
